@@ -22,6 +22,8 @@ Then set the size and so forth however you like and it should remain static.
 Currently things are fairly opinionated as trying to get things working locally. 
 Most of the directories are located at the top of *whatson.py* and the subfolder decoration is currently in *playing.py*
 
+## NOTE: You need to play a default.png in the root directory of the art folder in case no good match can be made. Otherwise it will not change the image at all.
+
 ### Entry Code - whatson.py
 python whatson.py
 

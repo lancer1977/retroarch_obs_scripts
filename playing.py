@@ -43,6 +43,8 @@ def getFolderFromCore(core: str) -> str:
         return "virtualboy"
     if core == "Nintendo - Nintendo Entertainment System":
         return "nes"
+    if core == "Nintendo - SNES":
+        return "snes"
     if core == "Nintendo - Super Nintendo Entertainment System":
         return "snes"
     if core == "Nintendo - Nintendo 64":
@@ -96,7 +98,7 @@ def getImage(title:str, core:str) -> str:
         title = title.split('(')[0].strip()
         result = find_first_matching_image(folder,'*' + title + '*')
     if(result == ''):
-        result = find_first_matching_image( '*Default*')
+        result = os.join(__imagePath__, "default.png")
     return result
 
 def getCore(game: RetroArchGame) -> str:
