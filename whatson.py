@@ -2,7 +2,7 @@
 import os
 import shutil
 import time
-from playing import Game, init_paths
+from game import Game, init_paths
 from retroarch import  RetroArchGame, importRetroArchGame
 
 retroarch_path = "D:\\LaunchBox\\Emulators\\RetroArch"
