@@ -22,6 +22,9 @@ Then set the size and so forth however you like and it should remain static.
 Currently things are fairly opinionated as trying to get things working locally. 
 Most of the directories are located at the top of *whatson.py* and the subfolder decoration is currently in *playing.py*
 
+### Entry Code - whatson.py
+python whatson.py
+
 # Future Goals
 ## More Metadata 
 I want to feed the actual core data and so fort to the output folder as well, this shouldn't be hard to perhaps provide additional metadata such as titles, game names, cores, etc to the able to be consumed by external apps.
