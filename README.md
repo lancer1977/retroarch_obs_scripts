@@ -1,4 +1,4 @@
-# retroarch_obs_scripts
+# Retroarch / OBS Scripts
 Scripts to assist in updating OBS with data regarding the current game playing in retroarch. 
 
 ## How it works
