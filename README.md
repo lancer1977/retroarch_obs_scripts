@@ -22,4 +22,15 @@ Then set the size and so forth however you like and it should remain static.
 Currently things are fairly opinionated as trying to get things working locally. 
 Most of the directories are located at the top of *whatson.py* and the subfolder decoration is currently in *playing.py*
 
+# Future Goals
+## More Metadata 
+I want to feed the actual core data and so fort to the output folder as well, this shouldn't be hard to perhaps provide additional metadata such as titles, game names, cores, etc to the able to be consumed by external apps.
+## Web Queries
+Query DB for additional data on the title to inject into the output
+### Web based images
+
+## Webhooks
+Make a call to a discord webhook for example to announce whats playing with the image data.
+
+
 Inspired by the work done by marcomalachias: https://obsproject.com/forum/threads/obs-retroarch-watchdog.127058/
