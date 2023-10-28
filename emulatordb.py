@@ -1,4 +1,4 @@
-
+# this should be the fallback for ISO based games.
 def getFolderFromCore(core: str) -> str:
     if core == "Sega - MS/GG/MD/CD":
         return "segacd"
@@ -56,25 +56,47 @@ def getFolderFromCore(core: str) -> str:
         return "intellivision"
     return ""
 
+# this should be the default for non-ISO based games.
 def getPlatformFromExtension(ext:str)-> str:
     if ext == ".iso" or ext == ".cso" or ext == ".bin" or ext == ".img" or ext == ".mdf" or ext == ".cue" or ext == ".ccd" or ext == ".nrg" or ext == ".pbp" or ext == ".chd" or ext == ".zip":
         return "unknown"
-    if ext == ".nes":
-        return "nes"
-    elif ext == ".snes" or ext == ".smc":
-        return "snes"
-    elif ext == ".gen" or ext == ".md":
-        return "genesis"
-    elif  ext == ".32x":
-        return "32x"
-    elif ext == ".pce" or ext == ".cue" or ext == ".sgx":
-        return "pce"
+    
     elif ext == ".gb" or ext == ".gbc":
         return "gb"
     elif ext == ".gba":
         return "gba"
+    if ext == ".nes":
+        return "nes"
+    elif ext == ".snes" or ext == ".smc":
+        return "snes"
+    elif ext == ".n64":
+        return "n64"
+    
+    elif ext == ".gg":
+        return "gamegear"
+    elif ext == ".sms":
+        return "mastersystem"
+    elif ext == ".gen" or ext == ".md" or ext == ".smd" :
+        return "genesis"
+    elif  ext == ".32x":
+        return "32x"
+    elif ext == ".pce" or ext == ".sgx":
+        return "pce"
+    
     elif ext == ".ngc":
         return "ngc"
+    
+    elif ext == ".2600":
+        return "atari2600"
+    elif ext == ".5200":
+        return "atari5200"
+    elif ext == ".7800":
+        return "atari7800"
+    elif ext == ".lynx":
+        return "atarilynx"
+    elif ext == ".jag":
+        return "atarijaguar"
+    
     # Add more extensions and their corresponding platforms here
     else:
         return "unknown"
