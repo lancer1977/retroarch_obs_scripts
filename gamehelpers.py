@@ -3,15 +3,15 @@ import os
 import re
 import fnmatch
 
-from retroarch import RetroArchGame
-from settings import imagePath, art_type
+from retroarch import RetroArchGame 
+from settings import CurrentSettings
 # Retroarch's installation folder:
 
 
 
 def find_first_matching_image(subfolder:str, pattern:str) -> str:
-    folder = os.path.join(imagePath, subfolder)
-    boxartFolder = os.path.join(folder, art_type)
+    folder = os.path.join(CurrentSettings.imagePath, subfolder)
+    boxartFolder = os.path.join(folder, CurrentSettings.art_type)
     if(os.path.exists(boxartFolder)):
         folder = boxartFolder
     for root, _, files in os.walk(folder):
@@ -57,7 +57,7 @@ def getImage(title:str, platform: str) -> str:
         title = title.split('(')[0].strip()
         result = find_first_matching_image(platform,'*' + title + '*')
     if(result == ''):
-        result = os.path.join(imagePath, "default.png")
+        result = os.path.join(CurrentSettings.imagePath, "default.png")
     return result
 
 def getPlatform(path: str, core: str) -> str:

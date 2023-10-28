@@ -14,6 +14,7 @@ class Game:
         return self.title != '' and self.core != '' and self.file != '' and self.image != ''
     
     def report(self):
+        print("----------------------------")
         print("Game: ", self.title)
         print("Core: ", self.core)
         print("File Path: ", self.path)
@@ -21,6 +22,7 @@ class Game:
         print("Filename: ", self.filename)        
         print("Platform: ", self.platform)        
         print("Image: ", self.image)
+        print("----------------------------")
     
     def __init__(self, game: RetroArchGame):
         self.path = game.path
