@@ -9,7 +9,10 @@ class Game:
     image: str
     path: str
     filename: str
-        
+    platform: str
+    
+    def Playing(self):
+        return "Playing " + self.title + " (" + self.platform + ")"
     def validate(self):
         return self.title != '' and self.core != '' and self.file != '' and self.image != ''
     
