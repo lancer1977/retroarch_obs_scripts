@@ -20,6 +20,13 @@ def ensureSettingsExists():
             file.write('discord_enable=false\n')
             file.write('# Discord token\n')
             file.write('discord_token=\n')
+            file.write('# Use Gui\n')
+            file.write('use_gui=false\n')
+
+            file.write('# Twitch twitch_clientid\n')
+            file.write('twitch_clientid=\n')
+            file.write('# Use Gui\n')
+            file.write('twitch_secret=\n')                 
 
 
 class Settings:
@@ -31,10 +38,17 @@ class Settings:
     # To not slam the CPU, set the number of seconds the script will pause for a few seconds between runs.
     sleep_seconds: int
     # Spam when sleeping and no changes
-    verbose = bool
-    discord_enable = bool
-    discord_token = str
+    verbose: bool
+    
+    #discord items
+    discord_enable: bool
+    discord_token: str
+    use_gui: bool
 
+    #twitch items
+    twitch_clientid: str
+    twitch_secret: str
+    twitch_redirect_url: str
     def importSettings(self):
 
         settings_dict = {}
@@ -53,6 +67,11 @@ class Settings:
         self.verbose = settings_dict.get('verbose', 'false').lower() == 'true'
         self.discord_enable = settings_dict.get('discord_enable', 'false').lower() == 'true'
         self.discord_token = settings_dict.get('discord_token', '')
+        self.use_gui = settings_dict.get('use_gui', 'false').lower() == 'true'
+
+        self.twitch_clientid = settings_dict.get('twitch_clientid', '')
+        self.twitch_secret = settings_dict.get('twitch_secret', '')
+        self.twitch_redirect_url = settings_dict.get('twitch_redirect_url', '')
 
     def __init__(self):
         set_working_directory_to_exe_location()

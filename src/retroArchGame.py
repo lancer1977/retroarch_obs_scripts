@@ -1,5 +1,6 @@
 import json
-
+import re
+import os
 
 class RetroArchGame:
     path: str
@@ -24,7 +25,15 @@ class RetroArchGame:
         self.core_name = data['core_name']
         self.crc32 = data['crc32']
         self.db_name = data['db_name']
-
+    def getNameFromRetroArch(self) -> str:
+        if(self.label != ''): 
+            return self.label
+        else:
+            tmp = re.search(r'[^\\]+\.(\w+)$', self.path).group()      
+            tmp = os.path.splitext(tmp)[0]        
+            tmp = tmp.split('(')[0].strip()
+            print(tmp)  
+            return tmp
 
 def importRetroArchGame(directory: str) -> RetroArchGame:
     with open(directory, 'r') as json_file:
@@ -34,3 +43,5 @@ def importRetroArchGame(directory: str) -> RetroArchGame:
         return RetroArchGame(items[0])
     else:
         return None
+
+

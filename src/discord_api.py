@@ -1,9 +1,7 @@
 import requests
-
+from dialog import showDialogShort
 from settings import CurrentSettings
 
-
-# Replace 'YOUR_TOKEN' with your actual Discord token.
 def update_discord(playing: str):
     if (not CurrentSettings.discord_enable):
         return
@@ -28,10 +26,10 @@ def update_discord(playing: str):
 
     # Make a PATCH request to update the status.
     response = requests.patch(url, json=status_data, headers=headers)
-    print(status_data)
+    showDialogShort(status_data)
     # Check the response status code to see if the request was successful.
     if response.status_code == 200:        
-        print('Status updated successfully.')
+        showDialogShort('Status updated successfully.')
     else:
-        print(f'Failed to update status. Status code: {response.status_code}')
+        showDialogShort(f'Failed to update status. Status code: {response.status_code}')
         
