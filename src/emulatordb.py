@@ -134,34 +134,105 @@ def getFolderFromCore(core: str) -> str:
 
 def getCoreFromSlug(folder: str) -> str:
     core_mapping = {
-        "dreamcast" : "Dreamcast",        
-        "segacd": "Sega CD",
-        "megadrive": "Genesis",
-        "mastersystem": "Master System",
-        "gamegear": "Game Gear",
-        "sg1000": "SG-1000",
-        "32x": "32X",
-        "psx": "PlayStation",
-        "ps2": "PlayStation 2",
-        "xbox": "OG Xbox",
-        "gb": "Game Boy",
-        "gbc": "Game Boy Color",
-        "gba": "Game Boy Advance",
-        "virtualboy": "Virtual Boy",
-        "nes": "NES",
-        "snes": "SNES",
-        "n64": "Nintendo 64",
-        "atari2600": "Atari 2600",
-        "atari5200": "Atari 5200",
-        "atari7800": "Atari 7800",
-        "atarilynx": "Atari Lynx",
-        "tg16": "TurboGrafx 16",
-        "tgcd": "TurboGrafx-CD",
-        "pce": "TurboGrafx 16",
-        "pcengine": "PC Engine",
-        "pcenginecd": "PC Engine CD ",
-        "coleco": "ColecoVision",
-        "intellivision": "Intellivision",
+        "3do" : "3DO Interactive Multiplayer",
+        "actionmax" : "",
+        "amiga" : "Amiga",
+        "amigacd32" : "Amiga CD32",
+        "amstradcpc" : "Amstrad CPC",
+        "arcade" : "Arcade",
+        "arcade_chd" : "Arcade",
+        "apple2" : "Apple II",
+        "astrocade" : "Bally Astrocade",
+        "atari2600" : "Atari 2600",
+        "atari5200" : "Atari 5200",
+        "atari7800" : "Atari 7800",
+        "atari800" : "Atari 8-bit",
+        "atarijaguar" : "Atari Jaguar",
+        "atarijaguarcd" : "Atari Jaguar CD",
+        "atarilynx" : "Atari Lynx",
+        "atarist" : "Atari ST/STE",
+        "c64" : "Commodore C64/128/MAX",
+        "cdi" : "Philips CD-i",
+        "channelf" : "Fairchild Channel F",
+        "coleco" : "ColecoVision",
+        "creativision" : "",
+        "crvision" : "",
+        "daphne" : "Arcade",
+        "dos" : "DOS",
+        "dreamcast" : "Dreamcast",
+        "famicom" : "Family Computer Disk System",
+        "fairchild" : "Fairchild Channel F",
+        "fba" : "Arcade",
+        "fds" : "",
+        "fmtowns" : "FMTowns",
+        "gameandwatch" : "Game & Watch",
+        "gamecube" : "Nintendo GameCube",
+        "gamegear" : "Sega Game Gear",
+        "gb" : "Game Boy",
+        "gba" : "Game Boy Advance",
+        "gbah" : "Game Boy Advance",
+        "gbc" : "Game Boy Color",
+        "gbh" : "Game Boy",
+        "genh" : "Sega Mega Drive/Genesis",
+        "ggh" : "",
+        "intellivision" : "Intellivision",
+        "jaguar" : "Atari Jaguar",
+        "genesis" : "Genesis",
+        "megadrive" : "Mega Drive",
+        "megadrive-japan" : "Sega Mega Drive/Genesis",
+        "model123" : "Arcade",
+        "msdos" : "DOS",
+        "msx" : "MSX",
+        "msx2" : "MSX2",
+        "nds" : "Nintendo DS",
+        "n3ds" : "Nintendo 3DS",
+        "n64" : "Nintendo 64",
+        "naomi" : "Arcade",
+        "neogeo" : "Neo Geo AES",
+        "neogeocd" : "Neo Geo CD",
+        "nes" : "NES",
+        "nesh" : "",
+        "ngp" : "Neo Geo Pocket",
+        "ngpc" : "Neo Geo Pocket Color",
+        "nswitch" : "Nintendo Switch",
+        "odyssey2" : "",
+        "pc" : "DOS",
+        "pcengine" : "TurboGrafx-16/PC Engine",
+        "pcenginecd" : "Turbografx-16/PC Engine CD",
+        "pcfx" : "PC-FX",
+        "pico" : "",
+        "ports" : "",
+        "ps1" : "PlayStation",
+        "ps2" : "PlayStation 2",
+        "ps3" : "PlayStation 3",
+        "ps4" : "PlayStation 4",
+        "ps5" : "PlayStation 5",
+        "psp" : "PlayStation Portable",
+        "vita" : "PlayStation Vita",
+        "saturn" : "Sega Saturn",
+        "Scumm" : "DOS",
+        "scummvm" : "DOS",
+        "sega32x" : "Sega 32X",
+        "segacd" : "Sega CD",
+        "segapico" : "Sega Pico",
+        "sfc" : "Super Famicom",
+        "sg-1000" : "SG-1000",
+        "sgfx" : "PC Engine SuperGrafx",
+        "sms" : "Sega Master System/Mark III",
+        "snes" : "Super Nintendo Entertainment System",
+        "snesh" : "Super Nintendo Entertainment System",
+        "tg16" : "TurboGrafx-16/PC Engine",
+        "tg16cd" : "Turbografx-16/PC Engine CD",
+        "ti99" : "Texas Instruments TI-99",
+        "vectrex" : "Vectrex",
+        "vg5000" : "",
+        "videopac" : "",
+        "virtualboy" : "Virtual Boy",
+        "wii" : "Wii",
+        "wiiu" : "Wii U",
+        "wiiware" : "",
+        "wonderswan" : "WonderSwan",
+        "wonderswancolor" : "WonderSwan Color",
     }
     
     return core_mapping.get(folder, "")
@@ -205,112 +276,4 @@ def getPlatformFromExtension(ext: str) -> str:
     }
 
     return platform_dict.get(ext, "unknown")
-    
-def getIgdbIdFromSlug(core: str) -> str:
-    platforms = {
-    "3do" : "50",# 3DO Interactive Multiplayer
-    "actionmax" : "9999",#
-    "amiga" : "16",# Amiga
-    "amigacd32" : "114",# Amiga CD32
-    "amstradcpc" : "25",# Amstrad CPC
-    "arcade" : "52",# Arcade
-    "arcade_chd" : "52",# Arcade
-    "apple2" : "75",# Apple II
-    "astrocade" : "91",# Bally Astrocade
-    "atari2600" : "59",# Atari 2600
-    "atari5200" : "66",# Atari 5200
-    "atari7800" : "60",# Atari 7800
-    "atari800" : "65",# Atari 8-bit
-    "atarijaguar" : "62",# Atari Jaguar
-    "atarijaguarcd" : "410",# Atari Jaguar CD
-    "atarilynx" : "61",# Atari Lynx
-    "atarist" : "63",# Atari ST/STE
-    "c64" : "15",# Commodore C64/128/MAX
-    "cdi" : "117",# Philips CD-i
-    "channelf" : "127",# Fairchild Channel F
-    "coleco" : "68",# ColecoVision
-    "creativision" : "",#
-    "crvision" : "",#
-    "daphne" : "52",# Arcade
-    "dos" : "13",# DOS
-    "dreamcast" : "23",# Dreamcast
-    "famicom" : "51",# Family Computer Disk System
-    "fairchild" : "127",# Fairchild Channel F
-    "fba" : "52",# Arcade
-    "fds" : "",#
-    "fmtowns" : "118",# FMTowns
-    "gameandwatch" : "307",# Game & Watch
-    "gamecube" : "21",# Nintendo GameCube
-    "gamegear" : "35",# Sega Game Gear
-    "gb" : "33",# Game Boy
-    "gba" : "24",# Game Boy Advance
-    "gbah" : "24",# Game Boy Advance
-    "gbc" : "22",# Game Boy Color
-    "gbh" : "33",# Game Boy
-    "genh" : "29",# Sega Mega Drive/Genesis
-    "ggh" : "",#
-    "intellivision" : "67",# Intellivision
-    "jaguar" : "62",# Atari Jaguar
-    "genesis" : "29",# Sega Mega Drive/Genesis
-    "megadrive" : "29",# Sega Mega Drive/Genesis
-    "megadrive-japan" : "29",# Sega Mega Drive/Genesis
-    "model123" : "52",# Arcade
-    "msdos" : "13",# DOS
-    "msx" : "27",# MSX
-    "msx2" : "53",# MSX2
-    "nds" : "20",# Nintendo DS
-    "n3ds" : "37",# Nintendo 3DS
-    "n64" : "4",# Nintendo 64
-    "naomi" : "52",# Arcade
-    "neogeo" : "80",# Neo Geo AES
-    "neogeocd" : "136",# Neo Geo CD
-    "nes" : "18",# Nintendo Entertainment System
-    "nesh" : "",#
-    "ngp" : "119",# Neo Geo Pocket
-    "ngpc" : "120",# Neo Geo Pocket Color
-    "nswitch" : "130",# Nintendo Switch
-    "odyssey2" : "",#
-    "pc" : "13",# DOS
-    "pcengine" : "86",# TurboGrafx-16/PC Engine
-    "pcenginecd" : "150",# Turbografx-16/PC Engine CD
-    "pcfx" : "274",# PC-FX
-    "pico" : "",#
-    "ports" : "",#
-    "ps1" : "7",# PlayStation
-    "ps2" : "8",# PlayStation 2
-    "ps3" : "9",# PlayStation 3
-    "ps4" : "48",# PlayStation 4
-    "ps5" : "167",# PlayStation 5
-    "psp" : "38",# PlayStation Portable
-    "vita" : "46",# PlayStation Vita
-    "saturn" : "32",# Sega Saturn
-    "Scumm" : "13",# DOS
-    "scummvm" : "13",# DOS
-    "sega32x" : "30",# Sega 32X
-    "segacd" : "78",# Sega CD
-    "segapico" : "339",# Sega Pico
-    "sfc" : "58",# Super Famicom
-    "sg-1000" : "84",# SG-1000
-    "sgfx" : "128",# PC Engine SuperGrafx
-    "sms" : "64",# Sega Master System/Mark III
-    "snes" : "19",# Super Nintendo Entertainment System
-    "snesh" : "19",# Super Nintendo Entertainment System
-    "tg16" : "86",# TurboGrafx-16/PC Engine
-    "tg16cd" : "150",# Turbografx-16/PC Engine CD
-    "ti99" : "129",# Texas Instruments TI-99
-    "vectrex" : "70",# Vectrex
-    "vg5000" : "",#
-    "videopac" : "",#
-    "virtualboy" : "87",# Virtual Boy
-    "wii" : "5",# Wii
-    "wiiu" : "41",# Wii U
-    "wiiware" : "",#
-    "wonderswan" : "57",# WonderSwan
-    "wonderswancolor" : "123",# WonderSwan Color
-    "x68000" : "121",# Sharp X68000
-    "xbox" : "11",# Xbox
-    "Zinc" : "",#
-    "zmachine" : "",#
-    "zxspectrum" : "26",# ZX Spectrum
-    }
-    return platforms.get(core, "")
+ 

@@ -31,49 +31,16 @@ def find_first_cart_matching_image(subfolder:str, pattern:str) -> str:
     return ''
 
 
-def getCountry(filename:str) -> str:
-    code =  re.findall(r'\((.*?)\)', filename)[0]
-    if(code == 'U'):
-        return 'USA'
-    elif(code == 'E'):
-        return 'Europe'
-    elif(code == 'J'):
-        return 'Japan'
-    elif(code == 'W'):
-        return 'World'
-    else:
-        return code    
+
 
 def getLastFolder(file: str, path: str) -> str:
     path = path.replace(file, '')
     return os.path.basename(path)
 
+def formatText(value, max):
+    if value == None:
+        return ''
+    if len(value) > max:
+        value = value[:max] + "..."
     
-def getBackgroundImage(platform: str, country: str) -> str:
-    filename = "background"
-    result =  find_first_matching_image(platform,f"*{filename} ({country})*")
-    if(result == ''):
-        result =  find_first_matching_image(platform,f"*{filename}*")
-    if(result == ''):
-        result = os.path.join(CurrentSettings.imagePath, "background_default.png")
-    return result
-
-def getImage(title:str, platform: str, country: str) -> str:
- 
-    result =  find_first_cart_matching_image(platform,f"*{title} ({country})*")
-    if(result == ''):
-        result =  find_first_cart_matching_image(platform,f"*{title}*")
-    if(result == ''):
-        result = os.path.join(CurrentSettings.imagePath, "default.png")
-    return result
-
-#attempt to initially get core from extension, else extract it from folder name
-def getPlatform(path: str, core: str) -> str:
-    extension = os.path.splitext(path)[1]
-    platform = getPlatformFromExtension(extension)    
-    if platform == 'unknown':
-        split = core.split(' (')[0].strip()
-        platform = getFolderFromCore(split)
-    return platform
-
- 
+    return value

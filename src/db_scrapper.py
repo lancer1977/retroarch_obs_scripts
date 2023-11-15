@@ -1,11 +1,10 @@
-import asyncio
+
 import os
-import json
 import re
 from difflib import get_close_matches
 
 import emulatordb
-from IgdbClient import IgdbClient
+from igdb.IgdbClient import IgdbClient
 from settings import CurrentSettings
 
 _igdbClient = IgdbClient(CurrentSettings.twitch_clientid,
@@ -64,8 +63,10 @@ def readPlatformsCsv():
     print("Folders to IGDB ID :")
     print("-------------------------")
     for platform in platforms:
+        platform = platform.replace('\n', '')
         items = platform.split(',')
-        print(f"\"{items[0]}\" : \"{items[1]}\",# {items[2]}")
+        
+        print(f"\"{items[0]}\" : \"{items[2]}\",")
 
 def getFolderPlatforms():
 # Get the list of all directories to use as defined platforms on disk
@@ -81,4 +82,4 @@ def getFolderPlatforms():
 #asyncio.run(getIgdbMaps())
 readPlatformsCsv()
 
-getFolderPlatforms()
+#getFolderPlatforms()

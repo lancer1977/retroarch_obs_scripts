@@ -41,7 +41,7 @@ class Settings:
     verbose: bool
     
     #discord items
-    discord_enable: bool
+    #discord_enable: bool
     discord_token: str
     use_gui: bool
 
@@ -49,6 +49,14 @@ class Settings:
     twitch_clientid: str
     twitch_secret: str
     twitch_redirect_url: str
+
+    def twitchEnabled(self):
+        return self.twitch_clientid != '' and self.twitch_secret != ''
+
+    def discordEnabled(self):
+        return self.discord_token != ''
+    
+    
     def importSettings(self):
 
         settings_dict = {}
@@ -58,19 +66,19 @@ class Settings:
                     continue
                 key, value = line.split('=')
                 settings_dict[key.strip()] = value.strip()
-        self.retroarch_path = settings_dict.get(
-            'retroarch_path', 'D:\\LaunchBox\\Emulators\\RetroArch')
+        self.retroarch_path = settings_dict.get('retroarch_path', 'D:\\LaunchBox\\Emulators\\RetroArch')
         self.imagePath = settings_dict.get('imagePath', 'U:\\art')
         self.art_type = settings_dict.get('art_type', 'boxart')
         self.data_path = settings_dict.get('data_path', 'D:\\obs_assets')
         self.sleep_seconds = int(settings_dict.get('sleep_seconds', 2))
         self.verbose = settings_dict.get('verbose', 'false').lower() == 'true'
-        self.discord_enable = settings_dict.get('discord_enable', 'false').lower() == 'true'
+        #self.discord_enable = settings_dict.get('discord_enable', 'false').lower() == 'true'
         self.discord_token = settings_dict.get('discord_token', '')
         self.use_gui = settings_dict.get('use_gui', 'false').lower() == 'true'
 
         self.twitch_clientid = settings_dict.get('twitch_clientid', '')
         self.twitch_secret = settings_dict.get('twitch_secret', '')
+        
         self.twitch_redirect_url = settings_dict.get('twitch_redirect_url', '')
 
     def __init__(self):

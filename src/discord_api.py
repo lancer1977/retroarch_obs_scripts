@@ -3,7 +3,7 @@ from dialog import showDialogShort
 from settings import CurrentSettings
 
 def update_discord(playing: str):
-    if (not CurrentSettings.discord_enable):
+    if (not CurrentSettings.discordEnabled()):
         return
     token = CurrentSettings.discord_token
     # Set the status and activity details you want to update.

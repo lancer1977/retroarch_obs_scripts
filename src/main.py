@@ -1,25 +1,25 @@
 import asyncio
 import json
 import os
-import platform
 import shutil
 import time
 
+from igdbclient import IgdbClient
 from discord_api import update_discord
 from emulatordb import getCoreFromSlug
 from game import Game
-from gui import showWindow
-from IgdbClient import IgdbClient
+
+
 from retroArchGame import RetroArchGame, importRetroArchGame
 from settings import CurrentSettings
 
 image_file = os.path.join(CurrentSettings.data_path, "cover.png")
 background_file = os.path.join(CurrentSettings.data_path, "background.png")
 json_file = os.path.join(CurrentSettings.data_path, "game.json")
+all_file = os.path.join(CurrentSettings.data_path, "all.txt")
 name_file = os.path.join(CurrentSettings.data_path, "name.txt")
 platform_file = os.path.join(CurrentSettings.data_path, "platform.txt")
-_igdbClient = IgdbClient(CurrentSettings.twitch_clientid,
-                         CurrentSettings.twitch_secret)
+_igdbClient = IgdbClient(CurrentSettings.twitch_clientid, CurrentSettings.twitch_secret)
 last_game: RetroArchGame = None
 
 
@@ -29,14 +29,14 @@ def setCurrentGame() -> RetroArchGame:
 
 async def getGame(current_game: RetroArchGame) -> Game:
     game = Game(current_game)
-    game.report()
-    igdb = await _igdbClient.getGame(game_name, game.platform)
+    igdb = await _igdbClient.getGame(game.title, game.platform)
     game.updateFromIgdb(igdb)
+    game.report()
     return game
 
 
 async def writeData(current_game: RetroArchGame):
-    game = getGame(current_game)
+    game = await getGame(current_game)
 
     os.makedirs(CurrentSettings.data_path, exist_ok=True)
 
@@ -71,6 +71,9 @@ async def writeData(current_game: RetroArchGame):
     # write Platform to disk
     with open(platform_file, "w") as file:
         file.write(getCoreFromSlug(game.platform))
+    with open(all_file, "w") as file:
+        file.write(f"Title: {game.title}\nPlatform: {getCoreFromSlug(game.platform)}\nYear:{game.year}\nSumary: {game.description}")
+        #\nDeveloper: {game.developer}\nPublisher: {game.publisher}\nRating: {game.rating}\nPlayers: {game.players}\nDescription: {game.description}")
 
 
 # if CurrentSettings.use_gui:
