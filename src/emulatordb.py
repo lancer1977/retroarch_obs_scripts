@@ -1,5 +1,5 @@
 # this should be the fallback for ISO based games.
-from distutils import core
+
 def gamePlatforms() -> list:
     platforms = ["3do",
         "Actionmax",

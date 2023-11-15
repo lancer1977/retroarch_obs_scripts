@@ -9,7 +9,6 @@ from discord_api import update_discord
 from emulatordb import getCoreFromSlug
 from game import Game
 
-
 from retroArchGame import RetroArchGame, importRetroArchGame
 from settings import CurrentSettings
 
@@ -23,7 +22,7 @@ _igdbClient = IgdbClient(CurrentSettings.twitch_clientid, CurrentSettings.twitch
 last_game: RetroArchGame = None
 
 
-def setCurrentGame() -> RetroArchGame:
+def set_current_game() -> RetroArchGame:
     return importRetroArchGame(os.path.join(CurrentSettings.retroarch_path, "content_history.lpl"))
 
 
@@ -72,15 +71,16 @@ async def writeData(current_game: RetroArchGame):
     with open(platform_file, "w") as file:
         file.write(getCoreFromSlug(game.platform))
     with open(all_file, "w") as file:
-        file.write(f"Title: {game.title}\nPlatform: {getCoreFromSlug(game.platform)}\nYear:{game.year}\nSumary: {game.description}")
-        #\nDeveloper: {game.developer}\nPublisher: {game.publisher}\nRating: {game.rating}\nPlayers: {game.players}\nDescription: {game.description}")
+        file.write(
+            f"Title: {game.title}\nPlatform: {getCoreFromSlug(game.platform)}\nYear:{game.year}\nSumary: {game.description}")
+        # \nDeveloper: {game.developer}\nPublisher: {game.publisher}\nRating: {game.rating}\nPlayers: {game.players}\nDescription: {game.description}")
 
 
 # if CurrentSettings.use_gui:
 #    showWindow()
 
 while True:
-    current_game = setCurrentGame()
+    current_game = set_current_game()
 
     # Did the game change?
     if last_game is None or current_game.path != last_game.path:
