@@ -4,11 +4,27 @@ from emulatordb import  getFolderFromCore, getPlatformFromExtension
 import os
 import random
 import fnmatch
+import re
 
 from retroArchGame import RetroArchGame 
 from settings import CurrentSettings
 # Retroarch's installation folder:
 
+def getCountry(filename:str) -> str:
+    try:        
+        code =  re.findall(r'\((.*?)\)', filename)[0]
+        if(code == 'U'):
+            return 'USA'
+        elif(code == 'E'):
+            return 'Europe'
+        elif(code == 'J'):
+            return 'Japan'
+        elif(code == 'W'):
+            return 'World'
+        else:
+            return code    
+    except:
+        return "World"
 
 def find_first_matching_image(subfolder:str, pattern:str) -> str:
     folder = os.path.join(CurrentSettings.imagePath, subfolder)

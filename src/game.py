@@ -1,4 +1,5 @@
 # retroarch.py
+from BatoceraGameParams import BatoceraGameParams
 from retroArchGame import *
 from gamehelpers import *
 from dialog import *
@@ -29,21 +30,7 @@ def getPlatform(path: str, core: str) -> str:
         platform = getFolderFromCore(split)
     return platform
 
-def getCountry(filename:str) -> str:
-    try:        
-        code =  re.findall(r'\((.*?)\)', filename)[0]
-        if(code == 'U'):
-            return 'USA'
-        elif(code == 'E'):
-            return 'Europe'
-        elif(code == 'J'):
-            return 'Japan'
-        elif(code == 'W'):
-            return 'World'
-        else:
-            return code    
-    except:
-        return "World"
+
 
 class Game:
     title: str
@@ -80,26 +67,22 @@ class Game:
         showDialog("Year: ", self.year)
         showDialogShort("----------------------------")
 
-    def getNameFromRetroArch(self, game ) -> str:
-        if(game.label != ''): 
-            return game.label
-        else:
-            tmp = re.search(r'[^\\]+\.(\w+)$', self.path).group()      
-            tmp = os.path.splitext(tmp)[0]        
-            tmp = tmp.split('(')[0].strip()
-            print(tmp)  
-            return tmp
+    def getNameFromRetroArch(self) -> str:
+        tmp = re.search(r'[^\\]+\.(\w+)$', self.filename).group()      
+        tmp = os.path.splitext(tmp)[0]        
+        tmp = tmp.split('(')[0].strip()
+        print(tmp)  
+        return tmp
         
-    def createFromApi(self, game: GameParams):
-        self.path = ''
-        self.core = '' #game.core_name
-        self.filename = ''#os.path.basename(game.path)
+    def createFromApi(self, game: BatoceraGameParams):
+        self.path = game.path
+        self.core = game.core
+        self.filename = os.path.basename(game.path)
         
-        self.country = 'Usa'       
-        self.platform = game.platform # getPlatform(self.path, self.core)
-        
-        self.title = game.name #getNameFromRetroArch(game)
-        self.image = getImage(self.title, self.platform, self.country)
+        self.country = game.country     
+        self.platform = game.system
+        self.title = self.getNameFromRetroArch()
+        self.image = getImage(self.title, game.system, self.country)
         self.background_image = getBackgroundImage(self.platform, self.country)
         self.description = ""
         self.year = 0
@@ -114,7 +97,7 @@ class Game:
         self.country = getCountry(self.filename)        
         self.platform = getPlatform(self.path, self.core)
         
-        self.title = self.getNameFromRetroArch(game)
+        self.title = self.getNameFromRetroArch()
         self.image = getImage(self.title, self.platform, self.country)
         self.background_image = getBackgroundImage(self.platform, self.country)
         self.description = ""
@@ -122,10 +105,14 @@ class Game:
         self.image_url = ""
         self.developer = ""
         
-    def updateFromIgdb(self, igdb):
-        if igdb is None:
-            return
-        self.description = igdb.summary
-        self.year = igdb.year
-        self.image_url = igdb.image 
-        self.developer = igdb.developer
+    async def updateFromIgdb(self, igdb):
+        try:
+            result = await igdb.getGame(self.title, self.platform)
+            if result is None:
+                return
+            self.description = result.summary
+            self.year = result.year
+            self.image_url = result.image 
+            self.developer = result.developer
+        except:
+            print("error retrieving IGDB data")

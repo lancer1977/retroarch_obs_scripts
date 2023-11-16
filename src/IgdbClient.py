@@ -2,6 +2,7 @@
 import requests
 import json
 from igdbgame import IgdbGame 
+from pyhelpers import get_first
 
 def _getIgdbIdFromSlug(core: str) -> str:
         platforms = {
@@ -178,7 +179,7 @@ class IgdbClient:
             await self.set_auth_token()
         platformId = _getIgdbIdFromSlug(platform)
         platformSearch = f"where platforms = ({platformId});" 
-        content = f'search "{name}";{platformSearch} fields  age_ratings,aggregated_rating,aggregated_rating_count,alternative_names.*,artworks.*,bundles,category,checksum,collection.*,cover.*,created_at,dlcs,expanded_games,expansions,external_games.*,first_release_date,follows,forks,franchise,franchises,game_engines,game_localizations,game_modes,genres,hypes,involved_companies.*,keywords,language_supports,multiplayer_modes,name,parent_game,platforms,player_perspectives,ports,rating,rating_count,release_dates,remakes,remasters,screenshots.*,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes.*,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;'
+        content = f'search "{name}";{platformSearch} fields  age_ratings,aggregated_rating,aggregated_rating_count,alternative_names.*,artworks.*,bundles,category,checksum,collection.*,cover.*,created_at,dlcs,expanded_games,expansions,external_games.*,first_release_date,follows,forks,franchise,franchises,game_engines,game_localizations,game_modes,genres,hypes,involved_companies.*,keywords,language_supports,multiplayer_modes,name,parent_game,platforms,player_perspectives,ports,rating,rating_count,release_dates,remakes,remasters,screenshots.*,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes.*,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;limit 20;'
         print(content)
         url = f"https://api.igdb.com/v4/games"
         result = await self.post(url,content)        
@@ -198,20 +199,22 @@ class IgdbClient:
     
     async def getGame(self, name, platform):
         igdbgames = await self.getRawGame(name, platform)
-        first = igdbgames[0]
-        companies = first.get('involved_companies') 
-        company = ""
-        if companies:
-            for co in companies:
-                if co.get('developer'):
-                    id = co.get('company')
-                    company = await self.getCompany(co.get('company'))
-                    first['developer'] =  company.get('name',"No Developer")
-                    print(company)
-                    break 
-        if igdbgames:
-            game = IgdbGame(first) 
-            return game
+        first = get_first(igdbgames, lambda x: x.get('name') == name)
+        if first:
+            companies = first.get('involved_companies') 
+            company = ""
+            if companies:
+                for co in companies:
+                    if co.get('developer'):
+                        id = co.get('company')
+                        company = await self.getCompany(co.get('company'))
+                        first['developer'] =  company.get('name',"No Developer")
+                        print(company)
+                        break 
+            if igdbgames:
+                game = IgdbGame(first) 
+                return game
+        return None
 
     async def getPlatformData(self):
         if not self.is_authenticated:

@@ -2,14 +2,6 @@ import json
 import re
 import os
 
-class GameParams:
-    name: str
-    platform: str
-        
-    def __init__(self):
-        self.name = ''
-        self.platform = '' 
-        
 class RetroArchGame:
 
     def __init__(self, data):

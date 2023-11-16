@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 import time
+from BatoceraGameParams import BatoceraGameParams
 from igdbclient import IgdbClient
 from discord_api import update_discord
 from emulatordb import getCoreFromSlug
@@ -20,28 +21,31 @@ all_file = os.path.join(CurrentSettings.data_path, "all.txt")
 name_file = os.path.join(CurrentSettings.data_path, "name.txt")
 platform_file = os.path.join(CurrentSettings.data_path, "platform.txt")
 
-async def writeDataFromGameParams(current_game: GameParams):
+async def writeDataFromGameParams(current_game: BatoceraGameParams) -> Game :
     game = Game()
-    game.createFromApi(current_game)
-    igdb = await _igdbClient.getGame(game.title, game.platform)
-    game.updateFromIgdb(igdb)
+    game.createFromApi(current_game) 
+    await  game.updateFromIgdb(_igdbClient)
     game.report()
     await _writeDataFromGame(game)
     return game
 
 async def writeDataFromRetroArchGame(current_game: RetroArchGame):
     game = Game(current_game)
-    igdb = await _igdbClient.getGame(game.title, game.platform)
-    game.updateFromIgdb(igdb)
+    await game.updateFromIgdb(_igdbClient)
     game.report()
     await _writeDataFromGame(game)
     return game
     
 async def _writeDataFromGame(game: Game):  
+    os.makedirs(CurrentSettings.data_path, exist_ok=True)
+    #cleanup old values
     if os.path.exists(image_file):
         os.remove(image_file)
+    if os.path.exists(background_file):
+        os.remove(background_file)
+    if os.path.exists(all_file):
+        os.remove(all_file)
 
-    os.makedirs(CurrentSettings.data_path, exist_ok=True)
 
     # Copy the image to the data folder
     if os.path.exists(game.image):

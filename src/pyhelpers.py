@@ -17,6 +17,8 @@ def set_working_directory_to_exe_location():
 
 
 def save_image_from_url(url, save_path):
+    if(url == None or url == ""):
+        return
     response = requests.get(url)
     
     if response.status_code == 200:
@@ -28,3 +30,12 @@ def save_image_from_url(url, save_path):
         print(f"Image saved to {save_path}")
     else:
         print(f"Failed to download image. Status code: {response.status_code}")
+
+def get_first(items, predicate):
+    if len(items) == 0:
+        return None
+    for item in items:
+        if predicate(item):
+            return item
+    return items[0]
+ 

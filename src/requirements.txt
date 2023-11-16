@@ -1,8 +1,11 @@
-import json
-import re
-import os
-import asyncio
-import shutil
-import time
-import tkinter
-import difflib
+
+re
+os
+asyncio
+shutil
+time
+tkinter
+difflib
+pandas
+flask
+pillow

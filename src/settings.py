@@ -28,8 +28,18 @@ def ensureSettingsExists():
             file.write('# Use Gui\n')
             file.write('twitch_secret=\n')                 
 
+            
+            file.write('# Local Api Debug\n')
+            file.write('local_api_debug=false\n')
+            file.write('# Local Api IP\n')
+            file.write('local_api_ip=\n')   
+            file.write('# Local Api Port\n')
+            file.write('local_api_port=\n')
 
 class Settings:
+    local_api_port: str
+    local_api_ip: str
+    local_api_debug: str
     retroarch_path: str
     imagePath: str
     art_type: str
@@ -81,12 +91,16 @@ class Settings:
         
         self.twitch_redirect_url = settings_dict.get('twitch_redirect_url', '')
 
+        self.local_api_port = settings_dict.get('local_api_port', '')
+        self.local_api_ip = settings_dict.get('local_api_ip', '')        
+        self.local_api_debug = settings_dict.get('local_api_debug', '')
+
+ 
+
     def __init__(self):
         set_working_directory_to_exe_location()
         ensureSettingsExists()
         self.importSettings()
 
 
-CurrentSettings: Settings = Settings()
-
-
+CurrentSettings: Settings = Settings() 
