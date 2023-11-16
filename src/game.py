@@ -1,14 +1,12 @@
 # retroarch.py
-from retroArchGame import RetroArchGame
+from retroArchGame import *
 from gamehelpers import *
 from dialog import *
-
+import re
+ 
 
 def getBackgroundImage(platform: str, country: str) -> str:
-    filename = "background"
-    result =  find_first_matching_image(platform,f"*{filename} ({country})*")
-    if(result == ''):
-        result =  find_first_matching_image(platform,f"*{filename}*")
+    result = get_random_image(os.path.join(platform ,"background"))
     if(result == ''):
         result = os.path.join(CurrentSettings.imagePath, "background_default.png")
     return result
@@ -18,8 +16,8 @@ def getImage(title:str, platform: str, country: str) -> str:
     result =  find_first_cart_matching_image(platform,f"*{title} ({country})*")
     if(result == ''):
         result =  find_first_cart_matching_image(platform,f"*{title}*")
-    if(result == ''):
-        result = os.path.join(CurrentSettings.imagePath, "default.png")
+    #if(result == ''):
+    #    result = os.path.join(CurrentSettings.imagePath, "default.png")
     return result
 
 #attempt to initially get core from extension, else extract it from folder name
@@ -57,6 +55,7 @@ class Game:
     filename: str
     platform: str
     description: str
+    developer: str
     year: int
     image_url:str
     
@@ -76,27 +75,57 @@ class Game:
         showDialog("Image: ", self.image)
         showDialog("Image_url: ", self.image_url)
         showDialog("Background Image: ", self.background_image)
+        showDialog("Developer: ", self.developer)
         showDialog("Description: ", self.description[:40])
         showDialog("Year: ", self.year)
         showDialogShort("----------------------------")
-    
-    def __init__(self, game: RetroArchGame):
-        self.path = game.path
-        self.core = game.core_name
-        self.filename = os.path.basename(game.path)
+
+    def getNameFromRetroArch(self, game ) -> str:
+        if(game.label != ''): 
+            return game.label
+        else:
+            tmp = re.search(r'[^\\]+\.(\w+)$', self.path).group()      
+            tmp = os.path.splitext(tmp)[0]        
+            tmp = tmp.split('(')[0].strip()
+            print(tmp)  
+            return tmp
         
-        self.country = getCountry(self.filename)        
-        self.platform = getPlatform(self.path, self.core    )
-        self.title = game.getNameFromRetroArch()
+    def createFromApi(self, game: GameParams):
+        self.path = ''
+        self.core = '' #game.core_name
+        self.filename = ''#os.path.basename(game.path)
+        
+        self.country = 'Usa'       
+        self.platform = game.platform # getPlatform(self.path, self.core)
+        
+        self.title = game.name #getNameFromRetroArch(game)
         self.image = getImage(self.title, self.platform, self.country)
         self.background_image = getBackgroundImage(self.platform, self.country)
         self.description = ""
         self.year = 0
         self.image_url = ""
-
+        self.developer = ""
+    
+    def createFromRetroarch(self, game: RetroArchGame):
+        self.path = game.path
+        self.core = game.core_name
+        self.filename = os.path.basename(game.path)
+        
+        self.country = getCountry(self.filename)        
+        self.platform = getPlatform(self.path, self.core)
+        
+        self.title = self.getNameFromRetroArch(game)
+        self.image = getImage(self.title, self.platform, self.country)
+        self.background_image = getBackgroundImage(self.platform, self.country)
+        self.description = ""
+        self.year = 0
+        self.image_url = ""
+        self.developer = ""
+        
     def updateFromIgdb(self, igdb):
         if igdb is None:
             return
         self.description = igdb.summary
         self.year = igdb.year
         self.image_url = igdb.image 
+        self.developer = igdb.developer

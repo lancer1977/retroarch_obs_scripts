@@ -68,8 +68,7 @@ def _getIgdbIdFromSlug(core: str) -> str:
         "nswitch" : "130",# Nintendo Switch
         "odyssey2" : "",#
         "pc" : "13",# DOS
-        "pcengine" : "86",# TurboGrafx-16/PC Engine
-        "pcenginecd" : "150",# Turbografx-16/PC Engine CD
+
         "pcfx" : "274",# PC-FX
         "pico" : "",#
         "ports" : "",#
@@ -89,9 +88,13 @@ def _getIgdbIdFromSlug(core: str) -> str:
         "sfc" : "58",# Super Famicom
         "sg-1000" : "84",# SG-1000
         "sgfx" : "128",# PC Engine SuperGrafx
+        "mastersystem" : "64",# Sega Master System/Mark III
         "sms" : "64",# Sega Master System/Mark III
         "snes" : "19",# Super Nintendo Entertainment System
         "snesh" : "19",# Super Nintendo Entertainment System
+        "pce" : "86",# TurboGrafx-16/PC Engine
+        "pcengine" : "86",# TurboGrafx-16/PC Engine
+        "pcenginecd" : "150",# Turbografx-16/PC Engine CD
         "tg16" : "86",# TurboGrafx-16/PC Engine
         "tg16cd" : "150",# Turbografx-16/PC Engine CD
         "ti99" : "129",# Texas Instruments TI-99
@@ -110,7 +113,7 @@ def _getIgdbIdFromSlug(core: str) -> str:
         "zmachine" : "",#
         "zxspectrum" : "26",# ZX Spectrum
         }
-        return platforms.get(core, "")
+        return platforms.get(core.lower(), "")
 
 class IgdbClient:
     enabled: bool
@@ -180,11 +183,35 @@ class IgdbClient:
         url = f"https://api.igdb.com/v4/games"
         result = await self.post(url,content)        
         return result
+
+    async def getCompany(self, id):
+        if not self.is_authenticated:
+            await self.set_auth_token()
+        
+        
+        content = f' fields  *; where id = {id};'
+        print(content)
+        url = f"https://api.igdb.com/v4/companies"
+        result = await self.post(url,content)        
+        return result[0]
+    
     
     async def getGame(self, name, platform):
         igdbgames = await self.getRawGame(name, platform)
+        first = igdbgames[0]
+        companies = first.get('involved_companies') 
+        company = ""
+        if companies:
+            for co in companies:
+                if co.get('developer'):
+                    id = co.get('company')
+                    company = await self.getCompany(co.get('company'))
+                    first['developer'] =  company.get('name',"No Developer")
+                    print(company)
+                    break 
         if igdbgames:
-            return [IgdbGame(x) for x in igdbgames][0]
+            game = IgdbGame(first) 
+            return game
 
     async def getPlatformData(self):
         if not self.is_authenticated:

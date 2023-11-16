@@ -1,22 +1,25 @@
 
 import time
-
+import pandas
 
 class IgdbGame:
     name: str
     image: str
     summary: str
     year: int
+    developer: str
     imageid: str
 
     def getImage(self, size: str):
         return f"http://images.igdb.com/igdb/image/upload/t_{size}/{self.imageid}.jpg"
     
     def __init__(self, igdb: dict):
+        #companies = igdb.get('involved_companies')         
         self.name = igdb.get('name', 'No Name')
         self.imageid = igdb.get('cover').get('image_id')
         self.image = self.getImage("cover_big")
-        self.summary = igdb.get('summary', 'No Description')
+        self.developer = igdb.get('developer', 'No Developer')
+        self.summary = igdb.get('summary', 'No Description').replace("\n", "")
         self.year = time.gmtime(igdb.get('first_release_date', 0)).tm_year
 
 

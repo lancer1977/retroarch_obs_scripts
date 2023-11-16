@@ -179,7 +179,7 @@ def getCoreFromSlug(folder: str) -> str:
         "jaguar" : "Atari Jaguar",
         "genesis" : "Genesis",
         "megadrive" : "Mega Drive",
-        "megadrive-japan" : "Sega Mega Drive/Genesis",
+        "megadrive-japan" : "Sega Mega Drive",
         "model123" : "Arcade",
         "msdos" : "DOS",
         "msx" : "MSX",
@@ -197,10 +197,12 @@ def getCoreFromSlug(folder: str) -> str:
         "nswitch" : "Nintendo Switch",
         "odyssey2" : "",
         "pc" : "DOS",
-        "pcengine" : "TurboGrafx-16/PC Engine",
-        "pcenginecd" : "Turbografx-16/PC Engine CD",
+        "pce" : "PC Engine",
+        "pcecd" : "PC Engine CD",
+        "pcengine" : "PC Engine",
+        "pcenginecd" : "PC Engine CD",
         "pcfx" : "PC-FX",
-        "pico" : "",
+        "pico" : "Sega Pico",
         "ports" : "",
         "ps1" : "PlayStation",
         "ps2" : "PlayStation 2",
@@ -219,10 +221,10 @@ def getCoreFromSlug(folder: str) -> str:
         "sg-1000" : "SG-1000",
         "sgfx" : "PC Engine SuperGrafx",
         "sms" : "Sega Master System/Mark III",
-        "snes" : "Super Nintendo Entertainment System",
-        "snesh" : "Super Nintendo Entertainment System",
-        "tg16" : "TurboGrafx-16/PC Engine",
-        "tg16cd" : "Turbografx-16/PC Engine CD",
+        "snes" : "Super NES",
+        "snesh" : "Super NES",
+        "tg16" : "TurboGrafx-16",
+        "tg16cd" : "Turbografx-16 CD",
         "ti99" : "Texas Instruments TI-99",
         "vectrex" : "Vectrex",
         "vg5000" : "",
@@ -242,7 +244,7 @@ def getPlatformFromExtension(ext: str) -> str:
     platform_dict = {
         ".iso": "unknown",
         ".cso": "unknown",
-        ".bin": "unknown",
+
         ".img": "unknown",
         ".mdf": "unknown",
         ".cue": "unknown",
@@ -260,6 +262,7 @@ def getPlatformFromExtension(ext: str) -> str:
         ".n64": "n64",
         ".gg": "gamegear",
         ".sms": "mastersystem",
+        ".bin": "genesis",
         ".gen": "genesis",
         ".md": "genesis",
         ".smd": "genesis",
@@ -275,5 +278,5 @@ def getPlatformFromExtension(ext: str) -> str:
         # Add more extensions and their corresponding platforms here
     }
 
-    return platform_dict.get(ext, "unknown")
+    return platform_dict.get(ext.lower(), "unknown")
  
