@@ -1,6 +1,5 @@
 
 import time
-import pandas
 
 class IgdbGame:
     name: str
