@@ -4,13 +4,14 @@ import os
 import shutil
 import time
 from BatoceraGameParams import BatoceraGameParams
-from igdbclient import IgdbClient
 from discord_api import update_discord
 from emulatordb import getCoreFromSlug
 from game import Game
 from pyhelpers import save_image_from_url
 from retroArchGame import * 
 from settings import CurrentSettings
+from poly_igdb import IgdbClient
+
 
 _igdbClient = IgdbClient(CurrentSettings.twitch_clientid, CurrentSettings.twitch_secret)
 

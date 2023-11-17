@@ -1,7 +1,7 @@
 
 import requests
 import json
-from .igdbgame import IgdbGame 
+from igdbgame import IgdbGame 
 
 def _getIgdbIdFromSlug(core: str) -> str:
         platforms = {

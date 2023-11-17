@@ -2,9 +2,10 @@ import asyncio
 import json
 import os
 import shutil
-import time
+import time 
+from poly_igdb import IgdbClient
 
-from igdbclient import IgdbClient
+#from poly-igdb import IgdbClient
 from discord_api import update_discord
 from emulatordb import getCoreFromSlug
 from game import Game
@@ -13,7 +14,6 @@ from pyhelpers import save_image_from_url
 from retroArchGame import RetroArchGame, importRetroArchGame
 from settings import CurrentSettings
 from writedisk import writeData
-
 
 
 last_game: RetroArchGame = None
