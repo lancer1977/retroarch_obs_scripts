@@ -2,10 +2,10 @@ import asyncio
 import json
 import os
 import shutil
-import time 
+import time
 from poly_igdb import IgdbClient
 
-#from poly-igdb import IgdbClient
+# from poly-igdb import IgdbClient
 from discord_api import update_discord
 from emulatordb import getCoreFromSlug
 from game import Game
@@ -20,8 +20,10 @@ last_game: RetroArchGame = None
 
 
 def set_current_game() -> RetroArchGame:
-    return importRetroArchGame(os.path.join(CurrentSettings.retroarch_path, "content_history.lpl"))
- 
+    return importRetroArchGame(
+        os.path.join(CurrentSettings.retroarch_path, "content_history.lpl")
+    )
+
 
 # if CurrentSettings.use_gui:
 #    showWindow()

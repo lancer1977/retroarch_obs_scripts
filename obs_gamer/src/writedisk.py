@@ -10,7 +10,8 @@ from game import Game
 from pyhelpers import save_image_from_url
 from retroArchGame import * 
 from settings import CurrentSettings
-from poly_igdb import IgdbClient
+from igdb import IgdbClient
+
 
 
 _igdbClient = IgdbClient(CurrentSettings.twitch_clientid, CurrentSettings.twitch_secret)
