@@ -1,8 +1,7 @@
 
 import requests
 import json
-from igdbgame import IgdbGame 
-from pyhelpers import get_first
+from .igdbgame import IgdbGame 
 
 def _getIgdbIdFromSlug(core: str) -> str:
         platforms = {
