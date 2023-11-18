@@ -1,17 +1,16 @@
 
-from settings import CurrentSettings
-from gui import updateText
+from settings import CurrentSettings 
 
 def showDialog(title:str, message:str):
     formatted = f"{title} {message}"
     if(CurrentSettings.use_gui):
-        updateText( formatted)
+        print( formatted)
     else:
         print(formatted)
 
 def showDialogShort( message:str):
     formatted = f"{message}"
     if(CurrentSettings.use_gui):
-        updateText( formatted)
+        print( formatted)
     else:
         print(formatted)

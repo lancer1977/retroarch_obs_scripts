@@ -1,9 +1,10 @@
 # retroarch.py
-from BatoceraGameParams import BatoceraGameParams
-from retroArchGame import *
+from BatoceraGameParams import BatoceraGameParams 
 from gamehelpers import *
 from dialog import *
 import re
+
+from emulatordb import *
  
 
 def getBackgroundImage(platform: str, country: str) -> str:
@@ -13,12 +14,9 @@ def getBackgroundImage(platform: str, country: str) -> str:
     return result
 
 def getImage(title:str, platform: str, country: str) -> str:
- 
     result =  find_first_cart_matching_image(platform,f"*{title} ({country})*")
     if(result == ''):
         result =  find_first_cart_matching_image(platform,f"*{title}*")
-    #if(result == ''):
-    #    result = os.path.join(CurrentSettings.imagePath, "default.png")
     return result
 
 #attempt to initially get core from extension, else extract it from folder name
@@ -89,10 +87,10 @@ class Game:
         self.image_url = ""
         self.developer = ""
     
-    def createFromRetroarch(self, game: RetroArchGame):
-        self.path = game.path
-        self.core = game.core_name
-        self.filename = os.path.basename(game.path)
+    def createFromRetroarch(self, path: str, core_name:str):
+        self.path = path
+        self.core = core_name
+        self.filename = os.path.basename(path)
         
         self.country = getCountry(self.filename)        
         self.platform = getPlatform(self.path, self.core)

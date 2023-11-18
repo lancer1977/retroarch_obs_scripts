@@ -1,6 +1,4 @@
-import json
-import re
-import os
+import json 
 
 class RetroArchGame:
 
@@ -11,9 +9,7 @@ class RetroArchGame:
         self.core_name = data['core_name']
         self.crc32 = data['crc32']
         self.db_name = data['db_name']
-        
-
-
+         
 def importRetroArchGame(directory: str) -> RetroArchGame:
     with open(directory, 'r') as json_file:
         data = json.load(json_file)

@@ -1,12 +1,8 @@
-####!/usr/bin/env python312
 # This folder has helpers for extracting information from a retroarch log, and for locating images on disk.
-from emulatordb import  getFolderFromCore, getPlatformFromExtension
 import os
 import random
 import fnmatch
 import re
-
-from retroArchGame import RetroArchGame 
 from settings import CurrentSettings
 # Retroarch's installation folder:
 
@@ -68,17 +64,6 @@ def get_random_image(subfolder):
     # Return the full path to the random image
     return os.path.join(folder, random_image)
 
- 
-
-
 def getLastFolder(file: str, path: str) -> str:
     path = path.replace(file, '')
     return os.path.basename(path)
-
-def formatText(value, max):
-    if value == None:
-        return ''
-    if len(value) > max:
-        value = value[:max] + "..."
-    
-    return value

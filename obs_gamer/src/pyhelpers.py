@@ -39,3 +39,9 @@ def get_first(items, predicate):
             return item
     return items[0]
  
+def formatText(value, max) -> str:
+    if value == None:
+        return ''
+    if len(value) > max:
+        value = value[:max] + "..."
+    return value

@@ -1,5 +1,4 @@
 import requests
-from dialog import showDialogShort
 from settings import CurrentSettings
 
 def update_discord(playing: str):
@@ -26,10 +25,10 @@ def update_discord(playing: str):
 
     # Make a PATCH request to update the status.
     response = requests.patch(url, json=status_data, headers=headers)
-    showDialogShort(status_data)
+    print(status_data)
     # Check the response status code to see if the request was successful.
     if response.status_code == 200:        
-        showDialogShort('Status updated successfully.')
+        print('Status updated successfully.')
     else:
-        showDialogShort(f'Failed to update status. Status code: {response.status_code}')
+        print(f'Failed to update status. Status code: {response.status_code}')
         

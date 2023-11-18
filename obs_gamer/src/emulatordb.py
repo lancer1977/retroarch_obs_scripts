@@ -131,7 +131,6 @@ def getFolderFromCore(core: str) -> str:
 
     return core_dict.get(core, "")
 
-
 def getCoreFromSlug(folder: str) -> str:
     core_mapping = {
         "3do" : "3DO Interactive Multiplayer",
@@ -244,7 +243,6 @@ def getPlatformFromExtension(ext: str) -> str:
     platform_dict = {
         ".iso": "unknown",
         ".cso": "unknown",
-
         ".img": "unknown",
         ".mdf": "unknown",
         ".cue": "unknown",
@@ -279,4 +277,3 @@ def getPlatformFromExtension(ext: str) -> str:
     }
 
     return platform_dict.get(ext.lower(), "unknown")
- 

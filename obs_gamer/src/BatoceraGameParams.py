@@ -1,4 +1,5 @@
 from gamehelpers import getCountry
+
 class BatoceraGameParams:
     path: str
     system: str

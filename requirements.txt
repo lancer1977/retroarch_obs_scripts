@@ -1,0 +1,5 @@
+
+ asyncio    
+ pillow
+ requests
+ poly-igdb

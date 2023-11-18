@@ -4,7 +4,7 @@ import re
 from difflib import get_close_matches
 
 import emulatordb
-from igdb.IgdbClient import IgdbClient
+from  poly_igdb import IgdbClient
 from settings import CurrentSettings
 
 _igdbClient = IgdbClient(CurrentSettings.twitch_clientid,
@@ -13,12 +13,7 @@ _igdbClient = IgdbClient(CurrentSettings.twitch_clientid,
 
 async def getPlatformInfo() -> str:
     platforms = await _igdbClient.getPlatformData()
-    return platforms
-    # for item in platforms:
-    #     #name = getattr(item,'name', 'No Name')
-    #     name = item.get('name', 'No Name')
-    #     name = item['name']
-    #     print(f"\"{name}\":\"{name}\",")
+    return platforms 
 
 
 async def getIgdbMaps():
@@ -45,8 +40,8 @@ async def getIgdbMaps():
         if matches:
             matching_platform = matches[0]
 
-            print(f"\"{folder}\":\"{matching_platform.get('id', "error")}\",# {
-                  matching_platform.get('name', "error")}")
+            print(f"\"{folder}\":\"{matching_platform.get('id', 'error')}\",# {
+                  matching_platform.get('name', 'error')}")
             # igdbPlatforms = next((x for x in my_list if x % 2 == 0), None)
             # normalized_igdb.(matching_platform)
         else:
@@ -67,17 +62,6 @@ def readPlatformsCsv():
         items = platform.split(',')
         
         print(f"\"{items[0]}\" : \"{items[2]}\",")
-
-def getFolderPlatforms():
-# Get the list of all directories to use as defined platforms on disk
-    directory_path = 'U:\\Roms'
-    all_entries = os.listdir(directory_path)
-    # Filter only the directories from the entries
-    folders = [entry for entry in all_entries if os.path.isdir(os.path.join(directory_path, entry))]    
-    print("Folders from Directories:")
-    print("-------------------------")
-    for folder in folders:
-        print(f"\"{folder}\",")
 
 #asyncio.run(getIgdbMaps())
 readPlatformsCsv()
