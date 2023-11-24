@@ -1,26 +1,25 @@
 # retroarch.py
+import re
+
 from BatoceraGameParams import BatoceraGameParams 
 from gamehelpers import *
 from dialog import *
-import re
-
 from emulatordb import *
- 
 
-def getBackgroundImage(platform: str, country: str) -> str:
+def _getBackgroundImage(platform: str, country: str) -> str:
     result = get_random_image(os.path.join(platform ,"background"))
     if(result == ''):
         result = os.path.join(CurrentSettings.imagePath, "background_default.png")
     return result
 
-def getImage(title:str, platform: str, country: str) -> str:
+def _getImage(title:str, platform: str, country: str) -> str:
     result =  find_first_cart_matching_image(platform,f"*{title} ({country})*")
     if(result == ''):
         result =  find_first_cart_matching_image(platform,f"*{title}*")
     return result
 
 #attempt to initially get core from extension, else extract it from folder name
-def getPlatform(path: str, core: str) -> str:
+def _getPlatform(path: str, core: str) -> str:
     extension = os.path.splitext(path)[1]
     platform = getPlatformFromExtension(extension)    
     if platform == 'unknown':
@@ -80,8 +79,8 @@ class Game:
         self.country = game.country     
         self.platform = game.system
         self.title = self.getNameFromRetroArch()
-        self.image = getImage(self.title, game.system, self.country)
-        self.background_image = getBackgroundImage(self.platform, self.country)
+        self.image = _getImage(self.title, game.system, self.country)
+        self.background_image = _getBackgroundImage(self.platform, self.country)
         self.description = ""
         self.year = 0
         self.image_url = ""
@@ -93,11 +92,11 @@ class Game:
         self.filename = os.path.basename(path)
         
         self.country = getCountry(self.filename)        
-        self.platform = getPlatform(self.path, self.core)
+        self.platform = _getPlatform(self.path, self.core)
         
         self.title = self.getNameFromRetroArch()
-        self.image = getImage(self.title, self.platform, self.country)
-        self.background_image = getBackgroundImage(self.platform, self.country)
+        self.image = _getImage(self.title, self.platform, self.country)
+        self.background_image = _getBackgroundImage(self.platform, self.country)
         self.description = ""
         self.year = 0
         self.image_url = ""

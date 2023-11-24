@@ -1,5 +1,6 @@
-from pyhelpers import set_working_directory_to_exe_location
 import os
+from pyhelpers import set_working_directory_to_exe_location
+
 
 def ensureSettingsExists():
     if not os.path.exists('settings.ini'):

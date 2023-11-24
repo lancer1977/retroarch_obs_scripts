@@ -1,10 +1,8 @@
-
-import os
 import re
-from difflib import get_close_matches
-
 import emulatordb
-from  poly_igdb import IgdbClient
+
+from difflib import get_close_matches
+from  poly_igdbpy import IgdbClient
 from settings import CurrentSettings
 
 _igdbClient = IgdbClient(CurrentSettings.twitch_clientid,

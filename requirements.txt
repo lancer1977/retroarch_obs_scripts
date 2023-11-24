@@ -2,4 +2,5 @@
  asyncio    
  pillow
  requests
- poly-igdb
+ poly-igdbpy >= 0.1.2
+ 

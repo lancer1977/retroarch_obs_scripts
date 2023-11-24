@@ -1,14 +1,14 @@
 import json
 import os
 import shutil
-import Game
+from game import Game
 from BatoceraGameParams import BatoceraGameParams
 from discord_api import update_discord
 from emulatordb import getCoreFromSlug 
 from pyhelpers import save_image_from_url
-import RetroArchGame
+from retroArchGame import RetroArchGame
 from settings import CurrentSettings
-from poly_igdb import IgdbClient
+from poly_igdbpy import IgdbClient
 
 
 
@@ -30,8 +30,8 @@ async def writeDataFromGameParams(current_game: BatoceraGameParams) -> Game :
     return game
 
 async def writeDataFromRetroArchGame(current_game: RetroArchGame):
-    game = Game(current_game)
-    game.createFromRetroArch(current_game.path, current_game.core_name)
+    game = Game()
+    game.createFromRetroarch(current_game.path, current_game.core_name)
     await game.updateFromIgdb(_igdbClient)
     game.report()
     await _writeDataFromGame(game)

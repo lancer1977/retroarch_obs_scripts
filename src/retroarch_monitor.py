@@ -1,21 +1,21 @@
-import asyncio 
 import os 
-import time 
+import time
+import json
 
-# from poly-igdb import IgdbClient 
-
-from RetroArchGame import RetroArchGame, importRetroArchGame 
+from retroArchGame import RetroArchGame 
 from writedisk import writeDataFromRetroArchGame
 
-
-
-
-
-def _set_current_game(path:str) -> RetroArchGame:
-    return importRetroArchGame(
-        os.path.join(path, "content_history.lpl")
-    )
-
+def _set_current_game(base_path:str) -> RetroArchGame:
+    file = os.path.join(base_path, "content_history.lpl")
+    with open(file, 'r') as json_file:
+        data = json.load(json_file)
+    items = data.get('items', [])
+    if items:
+        return RetroArchGame(items[0])
+    else:
+        return None
+    
+ 
 
 # if CurrentSettings.use_gui:
 #    showWindow()
@@ -26,7 +26,7 @@ async def start(path: str, sleep_seconds: int, verbose :bool):
 
         # Did the game change?
         if last_game is None or current_game.path != last_game.path:
-            writeDataFromRetroArchGame(current_game)
+            await writeDataFromRetroArchGame(current_game)
             last_game = current_game
         else:
             if verbose:

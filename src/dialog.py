@@ -1,4 +1,3 @@
-
 from settings import CurrentSettings 
 
 def showDialog(title:str, message:str):

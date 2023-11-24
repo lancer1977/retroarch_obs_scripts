@@ -1,10 +1,11 @@
-from flask import Flask, jsonify,request
-from BatoceraGameParams import BatoceraGameParams 
-from settings import CurrentSettings 
-from writedisk import writeDataFromGameParams
-from poly_igdb import IgdbClient
-from BatoceraGameParams import BatoceraGameParams 
 import json
+
+from flask import Flask, jsonify,request
+from writedisk import writeDataFromGameParams
+from BatoceraGameParams import BatoceraGameParams 
+from settings import CurrentSettings
+from poly_igdbpy import IgdbClient
+from BatoceraGameParams import BatoceraGameParams 
  
 def startApi():
     _igdbClient = IgdbClient(CurrentSettings.twitch_clientid, CurrentSettings.twitch_secret)
