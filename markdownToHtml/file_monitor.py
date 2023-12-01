@@ -9,7 +9,7 @@ class FileMonitor(FileSystemEventHandler):
     
     folder:str
     filepath:str
-    action = print("")
+    action = print("test")
     
     def on_modified(self, event):
         if event.is_directory:
@@ -23,7 +23,11 @@ class FileMonitor(FileSystemEventHandler):
             self.observer.stop()
         self.observer = Observer()
         self.observer.schedule(self, self.folder, recursive=True)
-        self.observer.start()
+        try:
+            self.observer.start()
+        except Exception as e:
+            print("Error: unable to start monitor for ", e)
+
 
     def stopMonitor(self):
         self.observer.stop()
