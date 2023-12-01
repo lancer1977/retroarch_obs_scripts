@@ -1,8 +1,6 @@
 # Use with https://obsproject.com/forum/resources/xobsbrowserautorefresh-timed-automatic-browser-source-refreshing.1677/
-
-import markdown
-import time
-import os
+ 
+import time 
 import file_monitor
 from settings import CurrentSettings
 

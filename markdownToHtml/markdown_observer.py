@@ -7,9 +7,9 @@ class MarkdownObserver:
     output_file:str
     observer: FileMonitor()
     
-    def updateFilesFromSettings(self):
-        self.input_file = os.path.join(CurrentSettings.inputFolder, CurrentSettings.inputFile)  # source markdown    
-        self.output_file = CurrentSettings.outputFile  # target
+    def update(self, input_file, input_folder, output_file):
+        self.input_file = os.path.join(input_folder, input_file)  # source markdown    
+        self.output_file = output_file # target
     def convert_markdown_to_html(self):
         with open(self.input_file, 'r', encoding='utf-8', errors='ignore') as file:
             markdown_text = file.read()

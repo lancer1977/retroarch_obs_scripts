@@ -1,7 +1,7 @@
 import os 
 import sys
 from file_monitor import FileMonitor
-from markdown_observer import MarkdownObserver
+import markdown_observer
 
 def set_working_directory_to_exe_location():
     if getattr(sys, "frozen", False):
@@ -61,7 +61,9 @@ class Settings:
         self.outputFile = settings_dict.get('outputFile', 'D:\\obs_assets\\goals.html')
         self.sleep_seconds = int(settings_dict.get('sleep_seconds', 2))
         self.verbose = settings_dict.get('verbose', 'false').lower() == 'true'
-        MarkdownObserver.Current.startMonitor()
+        
+        markdown_observer.Current.update(self.inputFile,self.inputFolder,self.outputFile)
+        markdown_observer.Current.startMonitor()
 
     def startMonitor(self): 
         self.fileMonitor.folder = os.path.dirname(os.path.realpath(__file__))
