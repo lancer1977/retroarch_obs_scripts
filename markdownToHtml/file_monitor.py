@@ -9,7 +9,7 @@ class FileMonitor(FileSystemEventHandler):
     
     folder:str
     filepath:str
-    action = print("test")
+    action = print("")
     
     def on_modified(self, event):
         if event.is_directory:

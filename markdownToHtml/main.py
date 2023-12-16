@@ -11,7 +11,7 @@ if __name__ == "__main__":
     monitor.startMonitor()
     try:
         while True:
-            time.sleep(1)
+            time.sleep(CurrentSettings.sleep_seconds)
     except KeyboardInterrupt:
         monitor.stopMonitor()
         CurrentSettings.stopMonitor()

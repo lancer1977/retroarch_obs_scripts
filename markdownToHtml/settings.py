@@ -15,8 +15,8 @@ def set_working_directory_to_exe_location():
 def ensureSettingsExists():
     if not os.path.exists('settings.ini'):
         with open('settings.ini', 'w') as file:
-            file.write('# Folder to analyze for updates')
-            file.write('inputFolder=C:\\Users\\lance\\SynologyDrive\\obsidian\\Projects\\API\\Learning\n')
+            file.write('# Folder to analyze for updates\n')
+            file.write('inputFolder=C:\\markdown\\projecta\n')
             file.write('# Markdown Path\n')
             file.write('inputFile=Goals.md\n')
             file.write('outputFile=D:\\obs_assets\\goals.html\n')

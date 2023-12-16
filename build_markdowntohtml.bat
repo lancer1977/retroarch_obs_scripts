@@ -1,0 +1,1 @@
+pyinstaller --onefile  markdownToHtml\main.py
