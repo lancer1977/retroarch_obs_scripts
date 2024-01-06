@@ -14,6 +14,7 @@ class BatoceraGameParams:
         self.emulator =''
         self.core = ''
         self.country = ''
+        
     def load(self,values):
         self.start = values['start']
         self.path = values['path']
