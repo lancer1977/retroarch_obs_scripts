@@ -39,3 +39,9 @@ Make a call to a discord webhook for example to announce whats playing with the 
 
 
 Inspired by the work done by marcomalachias: https://obsproject.com/forum/threads/obs-retroarch-watchdog.127058/
+
+
+## 📖 Documentation
+Detailed documentation can be found in the following sections:
+- [Feature Index](./docs/features/README.md)
+- [Core Capabilities](./docs/features/core-capabilities.md)
