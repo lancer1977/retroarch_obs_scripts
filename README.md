@@ -1,6 +1,15 @@
 # Retroarch / OBS Scripts
 Scripts to assist in updating OBS with data regarding the current game playing in retroarch. 
 
+## Tags
+
+- retro-obs
+- obs
+- docs
+- retro
+- webhooks
+- game
+
 ## How it works
 When you run a game in retroarch content_history.lpl is updated with json describing some data about the state including the games run, the items has the last game inserted into record 0. The code grabs that and attempts to parse the information.
 The core is extracted to try to convert it into a folder structure that we then look for a boxart folder if existing, if not it attempts to grab the first matching file, then it tries to remove any (USA) identifiers and make a match against that, otherwise it attempts to set the default value.
