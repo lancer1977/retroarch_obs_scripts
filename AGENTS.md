@@ -54,3 +54,5 @@ Follow the closest `AGENTS.md` first, then the workspace-root `AGENTS.md` when t
 ## Repo Notes
 
 - Add repo-specific commands, constraints, and validation steps below this line.
+- Warning: DreadTV is the future platform for OBS-source-driven streaming behavior and should be the preferred landing zone for reusable integrations.
+- Prioritize designs that are pluggable into `/mnt/data/lancer1977/code/dreadtv` instead of introducing permanent standalone patterns.
