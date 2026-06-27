@@ -166,6 +166,7 @@ cython_debug/
 .vscode/
 .idea/
 .vs/
+.devstudio/runtime/
 *.suo
 *.user
 *.userosscache

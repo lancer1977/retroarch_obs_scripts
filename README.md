@@ -69,6 +69,24 @@ Query DB for additional data on the title to inject into the output
 ## Webhooks
 Make a call to a discord webhook for example to announce whats playing with the image data.
 
+## Canonical Current-Game Payloads
+
+New OBS automation should consume canonical current-game payloads instead of
+adding more local filename matching. The pure adapter in `src/canonical_payload.py`
+normalizes payloads from `Api.VideoGames`, `Api.CDN`, or a future DreadTV bridge
+into one OBS-safe shape:
+
+- `known` - canonical game and media URL are available.
+- `unknown` - no canonical game identity was resolved, but a safe title/platform
+  fallback can still be rendered.
+- `missing_media` - canonical identity exists, but no media URL is available.
+- `stale` - payload data exists, but should be treated as expired or degraded.
+
+The stable output keys are `state`, `title`, `platform`, `canonicalGameId`,
+`canonicalSlug`, `mediaUrl`, `confidence`, `provenance`, `fallbackReason`, and
+`needsReview`. Keep reusable OBS-source behavior pluggable so it can move into
+or integrate with DreadTV instead of becoming permanent standalone logic here.
+
 
 Inspired by the work done by marcomalachias: https://obsproject.com/forum/threads/obs-retroarch-watchdog.127058/
 
