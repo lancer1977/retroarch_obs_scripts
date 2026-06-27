@@ -1,7 +1,3 @@
- 
-from retroarch import RetroArchGame
-import json
-
 def fakeSegaCDGameJson():
     return {
         "path": "U:\\roms\\segacd\\Adventures of Batman & Robin, The (USA).chd",
@@ -23,5 +19,3 @@ def fakeGenesisGameJson():
         "crc32": "",
         "db_name": ""
     }
-    
-  

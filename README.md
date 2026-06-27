@@ -36,6 +36,27 @@ Most of the directories are located at the top of *whatson.py* and the subfolder
 ### Entry Code - whatson.py
 python whatson.py
 
+## Validation And Artifacts
+
+Run the local unit test lane with:
+
+```bash
+PYTHONPATH=src:tests python -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+GitHub Actions runs the same test command on pull requests and pushes to `main`.
+The workflow uploads the unittest log as the `unittest-log` workflow artifact.
+
+Container builds run after tests. Pull requests build the image without pushing;
+pushes to `main` publish the image to GHCR at:
+
+```text
+ghcr.io/lancer1977/retroarch_obs_scripts
+```
+
+No extra repository secrets are required for the default CI path. The workflow
+uses the built-in `GITHUB_TOKEN` with package write permission for GHCR pushes.
+
 # Future Goals
 ## More Metadata 
 I want to feed the actual core data and so fort to the output folder as well, this shouldn't be hard to perhaps provide additional metadata such as titles, game names, cores, etc to the able to be consumed by external apps.
