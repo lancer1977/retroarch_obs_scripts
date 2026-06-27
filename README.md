@@ -41,11 +41,13 @@ python whatson.py
 Run the local unit test lane with:
 
 ```bash
+python -m pip install -r requirements.txt
 PYTHONPATH=src:tests python -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-GitHub Actions runs the same test command on pull requests and pushes to `main`.
-The workflow uploads the unittest log as the `unittest-log` workflow artifact.
+GitHub Actions installs `requirements.txt` and runs the same test command on
+pull requests and pushes to `main`. The workflow uploads the unittest log as the
+`unittest-log` workflow artifact.
 
 Container builds run after tests. Pull requests build the image without pushing;
 pushes to `main` publish the image to GHCR at:
