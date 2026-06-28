@@ -1,6 +1,4 @@
-
- asyncio    
- pillow
- requests
- poly-igdbpy >= 0.1.2
- 
+asyncio==4.0.0
+pillow==12.2.0
+requests==2.34.2
+poly-igdbpy==0.1.2

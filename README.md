@@ -41,13 +41,23 @@ python whatson.py
 Run the local unit test lane with:
 
 ```bash
-python -m pip install -r requirements.txt
-PYTHONPATH=src:tests python -m unittest discover -s tests -p 'test_*.py' -v
+python -m pip install -r requirements.txt -r requirements-dev.txt
+bash scripts/validate.sh
 ```
 
-GitHub Actions installs `requirements.txt` and runs the same test command on
-pull requests and pushes to `main`. The workflow uploads the unittest log as the
-`unittest-log` workflow artifact.
+`scripts/validate.sh` runs unittest discovery and `pip-audit` against the pinned
+runtime dependency set. If your system Python is externally managed, create a
+temporary virtual environment first:
+
+```bash
+python -m venv /tmp/retro-obs-validate
+/tmp/retro-obs-validate/bin/python -m pip install -r requirements.txt -r requirements-dev.txt
+PATH="/tmp/retro-obs-validate/bin:$PATH" bash scripts/validate.sh
+```
+
+GitHub Actions installs `requirements.txt` and `requirements-dev.txt`, then runs
+the same test and audit commands on pull requests and pushes to `main`. The
+workflow uploads the unittest log as the `unittest-log` workflow artifact.
 
 Container builds run after tests. Pull requests build the image without pushing;
 pushes to `main` publish the image to GHCR at:
