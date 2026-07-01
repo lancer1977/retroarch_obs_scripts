@@ -1,0 +1,6 @@
+# Runtime dependency lock used by repo-health and pip-audit.
+# Refresh from requirements.txt when runtime dependencies change.
+asyncio==4.0.0
+pillow==12.2.0
+requests==2.34.2
+poly-igdbpy==0.1.2

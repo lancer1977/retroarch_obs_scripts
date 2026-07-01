@@ -45,8 +45,9 @@ python -m pip install -r requirements.txt -r requirements-dev.txt
 bash scripts/validate.sh
 ```
 
-`scripts/validate.sh` runs unittest discovery and `pip-audit` against the pinned
-runtime dependency set. If your system Python is externally managed, create a
+`scripts/validate.sh` runs unittest discovery and `pip-audit` against
+`requirements.lock`. Refresh `requirements.lock` from `requirements.txt` when
+runtime dependencies change. If your system Python is externally managed, create a
 temporary virtual environment first:
 
 ```bash

@@ -7,7 +7,7 @@ cd "$repo_root"
 PYTHONPATH=src:tests python -m unittest discover -s tests -p 'test_*.py' -v
 
 if command -v pip-audit >/dev/null 2>&1; then
-  pip-audit -r requirements.txt
+  pip-audit -r requirements.lock
 else
-  python -m pip_audit -r requirements.txt
+  python -m pip_audit -r requirements.lock
 fi
